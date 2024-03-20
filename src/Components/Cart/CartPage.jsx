@@ -9,6 +9,7 @@ import {
   decreaseQuantity,
   removeItem,
 } from "../../Redux/CartReducers/CartSlice";
+import about from "../../assets/about.png";
 
 const CartPage = () => {
   const navigate = useNavigate();
@@ -58,7 +59,28 @@ const CartPage = () => {
 
   return (
     <Layout>
-      <Box p="3% 7%" minH={"90vh"}>
+       <Box position={"relative"} minHeight={"100vh"}>
+        <Box
+          
+          bgColor={"blackAlpha.100"}
+          zIndex={1}
+          maxH={"350px"}
+          display={"flex"}
+          justifyContent={"center"}
+          style={{
+            background:
+              "linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,0.7))",
+          }}
+          
+        >
+          <img
+            style={{ height: "250px", zIndex: "-1" }}
+            src={about}
+            alt="img"
+          />
+          <Text position={"absolute"} top={"20%"} fontSize={"60px"} fontWeight={"600"} color={"whiteAlpha.700"}>#Cart</Text>
+        </Box>
+        <Box p="3% 7%" minH={"90vh"}>
         <Flex justify="space-between">
           <Box w="65%">
             <Box p="2% 0%">
@@ -164,6 +186,8 @@ const CartPage = () => {
           </Box>
         </Flex>
       </Box>
+      </Box>
+     
     </Layout>
   );
 };

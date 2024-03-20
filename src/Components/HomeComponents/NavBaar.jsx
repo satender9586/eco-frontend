@@ -5,6 +5,7 @@ import { IoCartOutline } from "react-icons/io5";
 import { useSelector } from "react-redux";
 import logo from "../../assets/logo.png";
 
+
 const NavBar = () => {
   const navigate = useNavigate();
   const cartData = useSelector((state) => state.cartInfo);
@@ -18,7 +19,7 @@ const NavBar = () => {
         align="center"
         justify="space-between"
         padding="1rem"
-        borderBottom="1px solid #e2e8f0"
+       
       >
         <Text fontSize="xl" fontWeight="bold">
           <img
@@ -51,7 +52,7 @@ const NavBar = () => {
                 <Button
                   variant="none"
                   color={"white"}
-                  onClick={() => navigate("#")}
+                  onClick={() => navigate("/myorder")}
                   mr={4}
                 >
                   My Order

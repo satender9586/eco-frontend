@@ -18,22 +18,24 @@ import { getuserInfoData } from "../../Api/getApi";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addAddress } from "../../Redux/ShippingReducer/shippingSlice";
+import shipping from "../../assets/shipping.png";
 
 const PlaceOrderPage = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const path = useParams();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const LoginUserInfo = useSelector((state) => state?.userInfo);
-  const isAuthtentication = useSelector((state) => state?.isAuth?.isAuthenticated);
+  const isAuthtentication = useSelector(
+    (state) => state?.isAuth?.isAuthenticated
+  );
 
   const [formData, setFormData] = useState({
     name: LoginUserInfo?.name,
     phone: LoginUserInfo?.phone,
-    // address: "",
+    address: "",
     city: "",
     state: "",
     pincode: "",
-    landmark: "",
   });
 
   const inputFieldChangeHandler = (e) => {
@@ -59,22 +61,21 @@ const PlaceOrderPage = () => {
     e.preventDefault();
     const addObj = {
       userId: getUserId(),
-      // phoneNo: formData.phone,
+      phoneNo: formData.phone,
       state: formData?.state,
-      // address: formData.address,
+      address: formData.address,
       city: formData?.city,
       pincode: formData?.pincode,
-      landmark: formData?.landmark,
-    }
+    };
 
     if (isAuthtentication) {
       try {
         const response = await ShippingApi(addObj);
 
         if (response.status === 200) {
-          dispatch(addAddress(addObj))
+          dispatch(addAddress(addObj));
           toast.success("Delivery Address Added");
-          navigate("/payment")
+          navigate("/payment");
         }
       } catch (error) {
         console.error("Error", error.message);
@@ -88,66 +89,110 @@ const PlaceOrderPage = () => {
   }, []);
   return (
     <Layout>
-      <Box p="4" mx="auto" maxW="lg">
-        <Heading as="h1" fontSize="2xl" mb="4" textAlign="center">
-          Shipping Address
-        </Heading>
-        <form onSubmit={formSubmitHandler}>
-          <Stack spacing="4">
-            <Input
-              placeholder="Full Name"
-              name="name"
-              value={formData.name}
-              onChange={inputFieldChangeHandler}
-              required
-            />
-            <Input
-              placeholder="Phone"
-              name="phone"
-              value={formData.phone}
-              onChange={inputFieldChangeHandler}
-              required
-            />
-            <Input
-              placeholder="City"
-              name="city"
-              value={formData.city}
-              onChange={inputFieldChangeHandler}
-              required
-            />
-            <Input
-              placeholder="State"
-              name="state"
-              value={formData.state}
-              onChange={inputFieldChangeHandler}
-              required
-            />
-            <Textarea
-              placeholder="Address"
-              name="address"
-              resize="none"
-              value={formData.address}
-              onChange={inputFieldChangeHandler}
-              required
-            />
-            <Input
-              placeholder="Pincode"
-              name="pincode"
-              value={formData.pincode}
-              onChange={inputFieldChangeHandler}
-              required
-            />
-            <Input
-              placeholder="Landmark"
-              name="landmark"
-              value={formData.landmark}
-              onChange={inputFieldChangeHandler}
-            />
-            <Button colorScheme="blue" type="submit" w="100%">
-              Proceed Payment
-            </Button>
-          </Stack>
-        </form>
+      <Box
+        display={"grid"}
+        height={"100vh"}
+        gridTemplateColumns={"repeat(2,1fr)"}
+        padding={"3% 5%"}
+      >
+        <Box>
+          <img style={{ height: "500px", width: "100%" }} src={shipping} />
+        </Box>
+        <Box borderWidth="1px" borderRadius="lg" boxShadow="lg">
+          <Box>
+            <Text fontSize={"40px"} textAlign={"center"}>
+              Shipping Address
+            </Text>
+            <form onSubmit={formSubmitHandler}>
+              <Stack spacing="3" mt={"1rem"} paddingX={"5rem"}>
+                <Input
+                  borderRadius={"3px"}
+                  border={"1px solid #DADCE0"}
+                  height={"2.8rem"}
+                  fontSize={"18px"}
+                  _focusVisible={"none"}
+                  placeholder="Full Name"
+                  name="name"
+                  value={formData.name}
+                  onChange={inputFieldChangeHandler}
+                  required
+                />
+                <Input
+                  borderRadius={"3px"}
+                  border={"1px solid #DADCE0"}
+                  height={"2.8rem"}
+                  fontSize={"18px"}
+                  _focusVisible={"none"}
+                  placeholder="Phone"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={inputFieldChangeHandler}
+                  required
+                />
+                <Input
+                  borderRadius={"3px"}
+                  border={"1px solid #DADCE0"}
+                  height={"2.8rem"}
+                  fontSize={"18px"}
+                  _focusVisible={"none"}
+                  placeholder="City"
+                  name="city"
+                  value={formData.city}
+                  onChange={inputFieldChangeHandler}
+                  required
+                />
+                <Input
+                  borderRadius={"3px"}
+                  border={"1px solid #DADCE0"}
+                  height={"2.8rem"}
+                  fontSize={"18px"}
+                  _focusVisible={"none"}
+                  placeholder="State"
+                  name="state"
+                  value={formData.state}
+                  onChange={inputFieldChangeHandler}
+                  required
+                />
+                <Textarea
+                  borderRadius={"3px"}
+                  border={"1px solid #DADCE0"}
+                  height={"2.8rem"}
+                  fontSize={"18px"}
+                  _focusVisible={"none"}
+                  placeholder="Address"
+                  name="address"
+                  resize="none"
+                  value={formData.address}
+                  onChange={inputFieldChangeHandler}
+                  required
+                />
+                <Input
+                  borderRadius={"3px"}
+                  border={"1px solid #DADCE0"}
+                  height={"2.8rem"}
+                  fontSize={"18px"}
+                  _focusVisible={"none"}
+                  placeholder="Pincode"
+                  name="pincode"
+                  value={formData.pincode}
+                  onChange={inputFieldChangeHandler}
+                  required
+                />
+
+                <Button
+                  borderRadius={"3px"}
+                  border={"1px solid #DADCE0"}
+                  colorScheme="blue"
+                  fontSize={"20px"}
+                  type="submit"
+                  w="100%"
+                >
+                  Proceed Payment
+                </Button>
+              </Stack>
+            </form>
+          </Box>
+        </Box>
       </Box>
     </Layout>
   );

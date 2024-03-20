@@ -15,6 +15,7 @@ import Products from "./Components/Products/Products";
 import Contact from "./Components/HomeComponents/Contact";
 import Dashboard from "./Components/Dashbord/Dashboard";
 import Payment from "./Components/Payment/Payment";
+import MyOrder from "./Components/PlaceOrder.jsx/MyOrder";
 
 
 function App() {
@@ -44,6 +45,7 @@ function App() {
       <Route path="/contact" element={<Contact />} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/payment" element={<Payment />} />
+      <Route path="/myorder" element={<MyOrder />} />
     </Routes>
   );
 }

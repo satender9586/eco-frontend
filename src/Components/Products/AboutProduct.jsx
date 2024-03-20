@@ -47,14 +47,14 @@ import { useNavigate } from "react-router-dom";
               <img src={singleproduct.image} alt="Product" style={{ width: "100%", borderRadius: "10px",height:"400px" }} />
             </GridItem>
             <GridItem colSpan={1}>
-              <Text fontSize="3xl" fontWeight="bold">{singleproduct?.name}</Text>
-              <Text fontSize="xl" color="gray.600">${singleproduct?.price}</Text>
+              <Text fontSize="4xl" >{singleproduct?.name}</Text>
+              <Text fontSize="2xl" color="gray.600">${singleproduct?.price}</Text>
               
-              <Box mt={8}>
-                <Text fontSize="xl" fontWeight="bold">Description</Text>
-                <Text mt={2}>{singleproduct?.descrip}</Text>
+              <Box mt={6}>
+                <Text fontSize="xl" >Description</Text>
+                <Text mt={2} fontSize={"17px"}color="gray.600">{singleproduct?.about}</Text>
               </Box>
-              <Button mt={6} colorScheme="blue" size="lg" onClick={()=> {dispatch(addItem(singleproduct)),navigate("/cart")}}>Add To Cart</Button>
+              <Button mt={6} borderRadius={"4px"} fontSize={"14px"} colorScheme="blue" size="lg" onClick={()=> {dispatch(addItem(singleproduct)),navigate("/cart")}}>Add To Cart</Button>
             </GridItem>
           </Grid>
           
