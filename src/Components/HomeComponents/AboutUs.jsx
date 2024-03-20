@@ -4,9 +4,9 @@ import contact from "../../assets/about.png";
 
 const AboutUs = () => {
   return (
-    <Box padding={"3% 7%"}>
+    <Box padding={"3% 7%"} >
       <Box>
-        <Text fontSize="4xl" fontWeight={"600"} textAlign={"center"}>
+        <Text fontSize="5xl" fontWeight={"600"} textAlign={"center"}>
           About Us
         </Text>
       </Box>

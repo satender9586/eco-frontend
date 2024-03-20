@@ -5,21 +5,19 @@ import { IoCartOutline } from "react-icons/io5";
 import { useSelector } from "react-redux";
 import logo from "../../assets/logo.png";
 
-
 const NavBar = () => {
   const navigate = useNavigate();
   const cartData = useSelector((state) => state.cartInfo);
   const isAuthenticated = useSelector((state) => state?.isAuth?.isAuthenticated);
-  
 
   return (
-    <Box bg={"#6B46A5"}>
+    <Box bg={"#6B46A5"} position={"sticky"} top={0} right={0} zIndex={1}>
       <Flex
         as="nav"
         align="center"
         justify="space-between"
         padding="1rem"
-       
+        boxShadow="0px 4px 6px rgba(0, 0, 0, 0.1)"
       >
         <Text fontSize="xl" fontWeight="bold">
           <img
@@ -36,6 +34,8 @@ const NavBar = () => {
               color={"white"}
               onClick={() => navigate("/")}
               mr={4}
+              // Add hover effect for a premium look
+              _hover={{ color: "gray.200" }}
             >
               Home
             </Button>
@@ -44,6 +44,7 @@ const NavBar = () => {
               color={"white"}
               onClick={() => navigate("/product")}
               mr={4}
+              _hover={{ color: "gray.200" }}
             >
               Products
             </Button>
@@ -54,6 +55,7 @@ const NavBar = () => {
                   color={"white"}
                   onClick={() => navigate("/myorder")}
                   mr={4}
+                  _hover={{ color: "gray.200" }}
                 >
                   My Order
                 </Button>
@@ -64,6 +66,7 @@ const NavBar = () => {
               color={"white"}
               onClick={() => navigate("/contact")}
               mr={4}
+              _hover={{ color: "gray.200" }}
             >
               Contact
             </Button>
@@ -73,6 +76,7 @@ const NavBar = () => {
                 variant="none"
                 mr={4}
                 onClick={() => navigate("/cart")}
+                _hover={{ color: "gray.200" }}
               >
                 <Text
                   bgColor="blue.300"
@@ -97,6 +101,7 @@ const NavBar = () => {
                   colorScheme="teal"
                   variant="outline"
                   onClick={() => navigate("/login")}
+                  _hover={{ bgColor: "teal.500" }}
                 >
                   Sign In
                 </Button>
@@ -105,6 +110,7 @@ const NavBar = () => {
                   colorScheme="teal"
                   variant="solid"
                   onClick={() => navigate("/signup")}
+                  _hover={{ bgColor: "teal.500" }}
                 >
                   Sign Up
                 </Button>
@@ -114,7 +120,15 @@ const NavBar = () => {
           <Flex>
             {isAuthenticated && (
               <>
-                <Button ml={4} colorScheme="teal" variant="solid">
+                <Button
+                  ml={4}
+                  colorScheme="teal"
+                  variant="solid"
+                  onClick={() => navigate("/logout")}
+                 
+                  bgGradient="linear(to-r, teal.500, teal.400)"
+                  _hover={{ bgGradient: "linear(to-l, teal.400, teal.300)" }}
+                >
                   Log Out
                 </Button>
               </>

@@ -5,56 +5,45 @@ import Logo from "../../assets/logo.png";
 import { useSelector } from "react-redux";
 import { Divider } from "@chakra-ui/react";
 import { Radio, RadioGroup } from "@chakra-ui/react";
-import { PaymentInitApi } from "../../Api/postApi";
+import { PaymentInitApi} from "../../Api/postApi";
 import { isValidAmount } from "../../Validation/validationFuncltion";
 import { loadScript } from "../../Validation/validationFuncltion";
 import { PaymentConfirm } from "../../Api/postApi";
-
+import { createOrderApi } from "../../Api/postApi";
+import { useNavigate } from "react-router-dom";
+import { clearCart } from "../../Redux/CartReducers/CartSlice";
+import { useDispatch } from "react-redux";
 
 
 const Payment = () => {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   const cartData = useSelector((state) => state.cartInfo);
   const isAuth = useSelector((state) => state.isAuth);
   const shippinAddress = useSelector((state) => state.shippinAddress);
   const [selectPaymentMethod, setSelectPaymentMethod] = useState("RazarPay");
  
 
- 
+  console.log(isAuth)
 
 
   const PaymentSubmithandler = async (e) => {
-     e.preventDefault(), console.log(selectPaymentMethod)
-
-    
-
-      if(selectPaymentMethod==="RazarPay"){
+     e.preventDefault()
+      if(selectPaymentMethod==="RazarPay" && isAuth){
         displayRazorpay()
-
-        // try { 
-        //     const response = await PaymentInitApi({amount: isValidAmount(actualAmmount)})
-        //     if(response.status==200){
-        //       setPyamentIntitResponse(response.data.data)
-        //       displayRazorpay()
-        //     }       
-        // } catch (error) {
-        //   console.log("Error from API PaymentInit:", error)
-        // }
+      }else{
+          navigate("/cart")
       }
-
-
     };
-
-
-
-
 
     const displayRazorpay=async()=>{
 
       const totalAmmoutn = cartData.reduce((acc, curr)=> {
         return acc+curr.totalPrice
        },0)
-        const actualAmmount = totalAmmoutn -Math.floor((totalAmmoutn/100)*5)
-      
+        const actualAmmount = Math.floor(totalAmmoutn) 
+
+          
       try{
         const res = await loadScript();
     
@@ -65,18 +54,14 @@ const Payment = () => {
     
        
         const response = await PaymentInitApi({amount: actualAmmount})
-        console.log(response,"payment init")
-    
-        if (!response) {
+          if (!response) {
           alert("Server error. Are you online?");
           return;
         }
-    
-        const {key_id}=response.data;
-        const { amount, id: order_id, currency } = response.data.data
-;
-    
-        console.log("pazaorpay",amount,  order_id, currency)
+        const key_id=response.data.RazorPaykey_id;
+        const { amount, id: order_id, currency } = response?.data?.data?.Summary
+
+          
         const options = {
           key: key_id,  
           amount: amount.toString(),
@@ -92,29 +77,32 @@ const Payment = () => {
               razorpayOrderId: response.razorpay_order_id,
               razorpaySignature: response.razorpay_signature,
             };
+             try{ 
+              const response=await PaymentConfirm(data)
+              console.log(response,"payment success")
+              
+              if(response.status)
+              {
+                const apiData={ 
+                  products:cartData, 
+                  paymentId:response?.data.payment?._id,
+                  amount:actualAmmount,
+                  userId:shippinAddress.userId,
+                  shippinAddress:shippinAddress
+                }
+                const order=await  createOrderApi(apiData)
+                console.log(order)
 
-            console.log("paymetn cinfirm response", data)
-            // try{
-            //   const response=await paymentSuccess(data)
-            //   console.log(response,"payment success")
-            //   if(response.status)
-            //   {
-            //     const apiData={ 
-            //       cart:cart, 
-            //       shippingAddress:shipping, 
-            //       paymentId:response?.data?._id
-            //     }
-            //     const order=await createOrderApi(apiData)
-            //     if(order.status)
-            //     {
-            //       navigate(`/order/${order?.orderId}`)
-            //       dispatch(clearCart())
-            //     }
-            //   }
-            // }catch(error)
-            // {
-            //   console.log(error)
-            // }
+                if(order.status)
+                {
+                  navigate("/")
+                  dispatch(clearCart())
+                }
+              }
+            }catch(error)
+            {
+              console.log(error)
+            }
           },
           prefill: {
             name: "Satender Ahirwar",

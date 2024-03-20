@@ -4,13 +4,13 @@ import { FaFacebook, FaTwitter, FaLinkedin, FaInstagram } from 'react-icons/fa';
 
 const Footer = () => {
   return (
-    <Box bg="black" color="white" py="3%">
-      <Flex justify="space-between" align="center" maxW="1200px" mx="auto" px="4">
+    <Box bg="blackAlpha.900" color="white" py="3%" >
+      <Flex justify="space-between" align="center" maxW="1200px" height={"100%"}  mx="auto" px="4">
         <Box>
-          <Text fontSize="xl" fontWeight="bold">Company Name</Text>
-          <Text mt="1" fontSize="md">123 Street Name, City, Country</Text>
-          <Text fontSize="md">Phone: +1234567890</Text>
-          <Text fontSize="md">Email: info@example.com</Text>
+          <Text fontSize="3xl" fontWeight="bold">DevDynasty</Text>
+          <Text mt="1" fontSize="18px">Narela , New Delhi , India</Text>
+          <Text fontSize="18px">Phone: 9810411724</Text>
+          <Text fontSize="18px">Email: sksatenderkumar59@gmail.com</Text>
         </Box>
         
         <Flex>

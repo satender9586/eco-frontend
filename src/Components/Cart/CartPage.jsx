@@ -49,7 +49,7 @@ const CartPage = () => {
     if (isAuthtentication) {
       navigate("/placeorder");
     } else {
-      // navigate("/login");
+      navigate("/login");
     }
   };
 
@@ -113,7 +113,7 @@ const CartPage = () => {
                       Price: ₹{data.price}
                     </Text>
                     <Box
-                      bgColor={"black"}
+                     
                       p="0.2rem"
                       boxShadow="md"
                       bgClip={"blue."}
@@ -121,8 +121,6 @@ const CartPage = () => {
                       <Button onClick={() => QuantityDecfun(data)}>DEC</Button>
                       <Button
                         variant={"none"}
-                        bgColor={"black"}
-                        color={"white"}
                         borderRadius={"none"}
                       >
                         <Text>{data.quantity}</Text>

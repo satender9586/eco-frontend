@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-
 const saveStateToLocalStorage = (state) => {
   try {
     const serializedState = JSON.stringify(state);
@@ -10,18 +9,21 @@ const saveStateToLocalStorage = (state) => {
   }
 };
 
-
 const loadStateFromLocalStorage = () => {
   try {
     const serializedState = localStorage.getItem("cartState");
     if (serializedState === null) {
-      return []; 
+      return [];
     }
     return JSON.parse(serializedState);
   } catch (error) {
     console.error("Error loading state from local storage:", error);
-    return []; 
+    return [];
   }
+};
+const clearCartAndLocalStorage = () => {
+  localStorage.removeItem("cartState");
+  return [];
 };
 
 const initialState = loadStateFromLocalStorage();
@@ -39,7 +41,7 @@ const cartSlice = createSlice({
       } else {
         state.push({ ...newItem, quantity: 1, totalPrice: newItem.price });
       }
-      saveStateToLocalStorage(state); 
+      saveStateToLocalStorage(state);
     },
     increaseQuantity: (state, action) => {
       const itemId = action.payload;
@@ -47,7 +49,7 @@ const cartSlice = createSlice({
       if (item) {
         item.quantity += 1;
         item.totalPrice = item.price * item.quantity;
-        saveStateToLocalStorage(state); 
+        saveStateToLocalStorage(state);
       }
     },
     decreaseQuantity: (state, action) => {
@@ -57,22 +59,30 @@ const cartSlice = createSlice({
         if (item.quantity > 1) {
           item.quantity -= 1;
           item.totalPrice = item.price * item.quantity;
-          saveStateToLocalStorage(state); 
+          saveStateToLocalStorage(state);
         } else {
           state = state.filter((item) => item._id !== itemId);
-          saveStateToLocalStorage(state); 
+          saveStateToLocalStorage(state);
         }
       }
     },
     removeItem: (state, action) => {
       const itemId = action.payload;
       state = state.filter((item) => item._id !== itemId);
-      saveStateToLocalStorage(state); 
+      saveStateToLocalStorage(state);
+    },
+    clearCart: (state) => {
+      return clearCartAndLocalStorage();
     },
   },
 });
 
-export const { addItem, increaseQuantity, decreaseQuantity, removeItem } =
-  cartSlice.actions;
+export const {
+  addItem,
+  increaseQuantity,
+  decreaseQuantity,
+  removeItem,
+  clearCart,
+} = cartSlice.actions;
 
 export default cartSlice.reducer;

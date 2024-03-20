@@ -36,7 +36,7 @@ const Services = () => {
   ];
 
   return (
-    <Box p="3% 7%">
+    <Box p="3% 7%" bgColor={"#F9F9F9"}>
       <Text fontSize="5xl" fontWeight={"600"} textAlign={"center"}>
         Services
       </Text>

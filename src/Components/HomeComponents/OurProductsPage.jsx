@@ -22,7 +22,7 @@ const OurProductsPage = () => {
   );
 
   return (
-    <Box padding={"3% 7%"}>
+    <Box padding={"3% 7%"} bgColor={"#F9F9F9"}>
       <Box>
         <Text fontSize="5xl" fontWeight={"600"} textAlign={"center"}>
           Our Exciting Products
@@ -39,11 +39,12 @@ const OurProductsPage = () => {
       >
         {productreduxdata?.slice(0, 8)?.map((product, index) => (
           <Card
+            borderRadius="lg"
+            boxShadow="lg"
             maxW="300px"
             key={index}
             onClick={() => navigate(`/aboutproduct/${product._id}`)}
-           
-            style={{transform:"0.3s ease"}}
+            style={{ transform: "0.3s ease" }}
             _hover={{
               transform: "scale(1.1)",
               transition: "transform 0.5s ease",
@@ -58,10 +59,16 @@ const OurProductsPage = () => {
                 borderRadius="lg"
               />
               <Stack padding={"1rem"} height={"100%"} mt="3" spacing="2">
-                <Heading  size="md" fontWeight={"500"}>{product.name}</Heading>
-                <Text  fontSize="17px">{product.about.slice(0,50)}...</Text>
-                <Box display={"flex"} justifyContent={"space-between"} alignItems={"center"}>
-                  <Text color="blue.600" fontSize="16px" >
+                <Heading size="md" fontWeight={"500"}>
+                  {product.name}
+                </Heading>
+                <Text fontSize="17px">{product.about.slice(0, 50)}...</Text>
+                <Box
+                  display={"flex"}
+                  justifyContent={"space-between"}
+                  alignItems={"center"}
+                >
+                  <Text color="blue.600" fontSize="16px">
                     ${product.price}
                   </Text>
                   <Button borderRadius={"3px"} variant="none" bg={"green.400"}>
@@ -70,7 +77,6 @@ const OurProductsPage = () => {
                 </Box>
               </Stack>
             </CardBody>
-        
           </Card>
         ))}
       </Box>
