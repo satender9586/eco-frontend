@@ -1,20 +1,18 @@
-import { configureStore } from "@reduxjs/toolkit"
-import userInfoSlice from "./userSlice/userInfoSlice"
-import ProductRetriveSlice from "./ProductSlice/ProductRetriveSlice"
-import CartSlice from "./CartReducers/CartSlice"
-import authSlice from "./userSlice/authSlice"
-import shippingSlice from "./ShippingReducer/shippingSlice"
-
-
-
+import { configureStore } from "@reduxjs/toolkit";
+import userInfoSlice from "./userSlice/userInfoSlice";
+import ProductRetriveSlice from "./ProductSlice/ProductRetriveSlice";
+import CartSlice from "./CartReducers/CartSlice";
+import authSlice from "./userSlice/authSlice";
+import shippingSlice from "./ShippingReducer/shippingSlice";
+import otpSlice from "./userSlice/otpSlice";
 
 export const Store = configureStore({
-    reducer:{
-        userInfo:userInfoSlice,
-        AllProdcuts:ProductRetriveSlice,
-        cartInfo : CartSlice,
-        isAuth: authSlice,
-        shippinAddress : shippingSlice,
-      
-    }
-})
+  reducer: {
+    userInfo: userInfoSlice,
+    AllProdcuts: ProductRetriveSlice,
+    cartInfo: CartSlice,
+    isAuth: authSlice,
+    shippinAddress: shippingSlice,
+    otp: otpSlice,
+  },
+});

@@ -1,14 +1,45 @@
-import { Box, Flex, Text, Button } from "@chakra-ui/react";
+import { Box, Flex, Text, Button, IconButton } from "@chakra-ui/react";
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { IoCartOutline } from "react-icons/io5";
 import { useSelector } from "react-redux";
 import logo from "../../assets/logo.png";
+import { FaRegUserCircle } from "react-icons/fa";
+import { deleteToken, deleteUserID } from "../../../confitg/function";
+import { logout } from "../../Redux/userSlice/authSlice";
+import { clearUser } from "../../Redux/userSlice/userInfoSlice";
+import { useDispatch } from "react-redux";
+
+
+import {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverHeader,
+  PopoverBody,
+  PopoverFooter,
+  PopoverArrow,
+  PopoverCloseButton,
+  PopoverAnchor,
+} from "@chakra-ui/react";
 
 const NavBar = () => {
+  const dispatch = useDispatch()
   const navigate = useNavigate();
   const cartData = useSelector((state) => state.cartInfo);
-  const isAuthenticated = useSelector((state) => state?.isAuth?.isAuthenticated);
+  const isAuthenticated = useSelector(
+    (state) => state?.isAuth?.isAuthenticated
+  );
+
+    console.log("auth",isAuthenticated)
+
+  const logOutHandler = () => {
+    deleteToken();
+    deleteUserID();
+    dispatch(logout ())
+    dispatch(clearUser())
+    navigate("/");
+  };
 
   return (
     <Box bg={"#6B46A5"} position={"sticky"} top={0} right={0} zIndex={1}>
@@ -78,15 +109,7 @@ const NavBar = () => {
                 onClick={() => navigate("/cart")}
                 _hover={{ color: "gray.200" }}
               >
-                <Text
-                  bgColor="blue.300"
-                  padding="5px"
-                  borderRadius="50%"
-                  color="red"
-                  position="absolute"
-                  top="-15%"
-                  zIndex="1"
-                >
+                <Text color={"white"} position="absolute" top="-15%" zIndex="1">
                   {cartData.length}
                 </Text>
                 <IoCartOutline fontSize="30px" />
@@ -120,17 +143,35 @@ const NavBar = () => {
           <Flex>
             {isAuthenticated && (
               <>
-                <Button
-                  ml={4}
-                  colorScheme="teal"
-                  variant="solid"
-                  onClick={() => navigate("/logout")}
-                 
-                  bgGradient="linear(to-r, teal.500, teal.400)"
-                  _hover={{ bgGradient: "linear(to-l, teal.400, teal.300)" }}
-                >
-                  Log Out
-                </Button>
+                <Popover>
+                  <PopoverTrigger>
+                    <IconButton
+                      colorScheme="blue"
+                      aria-label="Search database"
+                      icon={<FaRegUserCircle />}
+                    />
+                  </PopoverTrigger>
+                  <PopoverContent>
+                    <PopoverArrow />
+
+                    <PopoverBody padding={"1.5rem"}>
+                      <NavLink>
+                        <Text fontSize={"16px"} fontWeight={"700"}>
+                          My Profile
+                        </Text>
+                      </NavLink>
+                      <NavLink onClick={logOutHandler}>
+                        <Text
+                          mt={"0.5rem"}
+                          fontSize={"16px"}
+                          fontWeight={"700"}
+                        >
+                          LogOut
+                        </Text>
+                      </NavLink>
+                    </PopoverBody>
+                  </PopoverContent>
+                </Popover>
               </>
             )}
           </Flex>

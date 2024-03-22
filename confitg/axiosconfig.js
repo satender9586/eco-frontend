@@ -1,20 +1,19 @@
-import axios from 'axios';
-import { getToken } from './function';
+import axios from "axios";
+import { getToken } from "./function";
 
 // import { refreshTokenApi } from './api';
 // import AllToast from '../utils/toast';
 
 const instance = axios.create({});
 
-
-instance.defaults.baseURL = "http://localhost:8080/api/v1"
+instance.defaults.baseURL = "http://localhost:8080/api/v1";
 
 // Add request interceptor
 instance.interceptors.request.use(
   function (config) {
-    const token = getToken()
+    const token = getToken();
     if (token) {
-      config.headers["Authorization"] = `Bearer ${getToken()}`  ;
+      config.headers["Authorization"] = `Bearer ${getToken()}`;
     }
     return config;
   },
@@ -37,8 +36,8 @@ instance.interceptors.response.use(
     }
 
     if (error?.response?.status === 401) {
-    //   refreshTokenApi();
-    //   AllToast.info("Please try again")
+      //   refreshTokenApi();
+      //   AllToast.info("Please try again")
     } else {
       return new Promise((resolve, reject) => {
         reject(error);
@@ -46,7 +45,5 @@ instance.interceptors.response.use(
     }
   }
 );
-
-
 
 export default instance;

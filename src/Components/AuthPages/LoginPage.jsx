@@ -20,9 +20,12 @@ import { LoginValidation } from "../../Validation/validationFuncltion";
 import { toast } from "react-toastify";
 import { LoginApi } from "../../Api/postApi";
 import { setToken, setUserID } from "../../../confitg/function";
+import { useDispatch } from "react-redux";
+import { login } from "../../Redux/userSlice/authSlice";
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch()
   const [formError, setFormError] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
   const [userData, setUserData] = useState({
@@ -55,8 +58,9 @@ const LoginPage = () => {
           localStorage.setItem("userId",UserId)
           setToken(Token)
           setUserID(UserId)
+          dispatch(login())
           toast.success("Login Successfully");
-          navigate("/")
+          navigate("/cart")
         } else {    
           toast.error("Login failed. Please try again.");
         }

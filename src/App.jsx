@@ -32,7 +32,7 @@ function App() {
 
   return (
     <Routes>
-      <Route path="/" element={<MainHome />} />
+      <Route exact path="/" element={<MainHome />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<SignUpPage />} />
       <Route path="/otp" element={<OtpVerify />} />

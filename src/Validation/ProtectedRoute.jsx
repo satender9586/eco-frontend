@@ -31,7 +31,7 @@ const ProtectedRoute = ({ children }) => {
     const [isLoading, setIsLoading] = useState(false)
     const token =  getToken();
 
-     console.log("tolen",token)
+     console.log("token",token)
     
 
 
@@ -84,10 +84,7 @@ const ProtectedRoute = ({ children }) => {
         if(token){
           dispatch(login())
           const userInfo = await TokenVerifyApi()
-          dispatch(setUser({...userInfo?.data?.user}))
-            console.log("tokenverify",await TokenVerifyApi())
-           
-           
+          dispatch(setUser(userInfo?.data?.user))
             userProtectedRoutefun()
         }else{
             userUnProtectedRoutefun()

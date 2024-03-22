@@ -4,6 +4,9 @@ import Header from "../HomeComponents/Header";
 import { SinginputValidation } from "../../Validation/validationFuncltion.jsx";
 import { SignupApi } from "../../Api/postApi.js";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { addEmail } from "../../Redux/userSlice/otpSlice.jsx";
 import {
   Box,
   FormControl,
@@ -22,7 +25,9 @@ import {
 import { useNavigate } from "react-router-dom";
 
 const SignUpPage = () => {
+  const reduxData = useSelector((state)=> state)
   const navigate = useNavigate();
+  const dispatch = useDispatch()
   const [formError, setFormError] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
   const [userData, setUserData] = useState({
@@ -31,6 +36,8 @@ const SignUpPage = () => {
     password: "",
     phone: "",
   });
+
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -54,11 +61,12 @@ const SignUpPage = () => {
         };
 
         const response = await SignupApi(data);
-        if (response.status === 200) {
-          console.log(response);
+        if (response.status === 201) {
+          dispatch(addEmail(userData.email))
+          navigate("/otp")
         }
       } catch (error) {
-        toast.error(error.response.data.message);
+        toast.error(error?.response?.data?.message);
       }
     } else {
       console.log(
@@ -66,6 +74,7 @@ const SignUpPage = () => {
       );
     }
   };
+  console.log(reduxData.otp)
 
   useEffect(() => {
     if (isSubmit) {

@@ -17,7 +17,7 @@ export const OtpverifyApi = async (Data) => {
 };
 
 export const ResendotpApi = async (data) => {
-  const response = await instance.post(`/${data.path}`, data.datas);
+  const response = await instance.post(`/auth/resend-otp`, data);
   if (!response) {
     throw new Error("Some Thing gone otpverify api");
   }
@@ -31,8 +31,6 @@ export const LoginApi = async (data) => {
   }
   return response;
 };
-
-
 
 export const ShippingApi = async (data) => {
   const response = await instance.post("/shipping/shipping", data);
