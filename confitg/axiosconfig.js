@@ -6,7 +6,8 @@ import { getToken } from "./function";
 
 const instance = axios.create({});
 
-instance.defaults.baseURL = "http://localhost:8080/api/v1";
+const basePublicUrl = import.meta.env.VITE_PUBLIC_URL
+instance.defaults.baseURL = basePublicUrl
 
 // Add request interceptor
 instance.interceptors.request.use(
