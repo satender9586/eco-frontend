@@ -116,11 +116,11 @@ const LoginPage = () => {
               </FormControl>
             </ModalBody>
 
-            <ModalFooter display={"flex"} justifyContent={"flex-start"}>
+            <ModalFooter display={"flex"} justifyContent={"space-between"}>
               <Button colorScheme="blue" mr={3} onClick={handleSubmit}>
                 Submit
               </Button>
-              <Button>Cancel</Button>
+             <Text><Button variant={"none"} minW={"0"} padding={"0"} onClick={()=> navigate("/updatepass")}>Forget Passowrd ? </Button></Text>
             </ModalFooter>
           </ModalContent>
         </Modal>

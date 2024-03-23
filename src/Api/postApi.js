@@ -71,3 +71,19 @@ export const createOrderApi = async (data) => {
   }
   return response;
 };
+
+export const OtpGenderate = async (data) => {
+  const response = await instance.post("/auth/forget", data);
+  if (!response) {
+    throw new Error("Some Thing gone otpverify api");
+  }
+  return response;
+};
+
+export const UpdatePasswordApi = async (data) => {
+  const response = await instance.post("/auth/updatepassowrd", data);
+  if (!response) {
+    throw new Error("Some Thing gone otpverify api");
+  }
+  return response;
+};

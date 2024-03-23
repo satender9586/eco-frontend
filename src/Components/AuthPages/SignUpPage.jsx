@@ -21,6 +21,7 @@ import {
   ModalBody,
   ModalCloseButton,
   Text,
+  Heading,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
@@ -143,11 +144,11 @@ const SignUpPage = () => {
                   </Text>
                 </FormControl>
               </ModalBody>
-              <ModalFooter display={"flex"} justifyContent={"flex-start"}>
+              <ModalFooter display={"flex"} justifyContent={"space-between"} >
                 <Button colorScheme="blue" mr={3} onClick={handleSubmit}>
                   Sign Up
                 </Button>
-                <Button>Cancel</Button>
+              <Text>I have already accoutn <Button variant={"none"} onClick={()=> navigate("/login")} color={"blue.400"} minW={"0"} padding={"0"}>login</Button></Text>
               </ModalFooter>
             </ModalContent>
           </Modal>

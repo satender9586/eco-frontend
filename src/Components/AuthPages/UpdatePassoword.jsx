@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Modal,
@@ -11,45 +11,96 @@ import {
   FormControl,
   FormLabel,
   Input,
+  InputLeftAddon,
+  Stack,
+  InputGroup,
+  InputRightAddon,
 } from "@chakra-ui/react";
 import Layout from "../HomeComponents/Layout";
 import Header from "../HomeComponents/Header";
+import { OtpGenderate } from "../../Api/postApi";
+import { toast } from "react-toastify";
+import { UpdatePasswordApi } from "../../Api/postApi";
+import { useNavigate } from "react-router-dom";
 
 const UpdatePasswordModal = () => {
-  const [email, setEmail] = useState("");
+  const navigate = useNavigate()
+  const [email, setEmail] = useState({ email: "" });
   const [otp, setOtp] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
 
-  const onClose = () => {
-    setIsOpen(false);
-    setEmail("");
-    setOtp("");
-    setNewPassword("");
-    setMessage("");
-    setError("");
+  const emailHandler = (e) => {
+    const { name, value } = e.target;
+    setEmail({ ...email, [name]: value });
   };
+  const OtpHandler = async () => {
+    try {
+      if (email.email) {
+        const response = await OtpGenderate({ email: email.email });
+
+        if (response.status == 200) {
+          toast.success("Otp Generate Succesflly");
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const updatePawwordHandler = async(e)=>{
+  try {
+    if(email.email && newPassword && otp){
+      const response = await UpdatePasswordApi({email:email.email,newPassword, otp})
+      if(response.status==200){
+        toast.success("Updated Password Successfully")
+        navigate ("/")
+      }
+  }
+  } catch (error) {
+    console.log(error) 
+  }
+  }
+
+  useEffect(() => {
+    setIsOpen(true);
+  }, []);
 
   return (
     <>
       <Layout>
         <Header />
-        <Button onClick={() => setIsOpen(true)}>Update Password</Button>
-        <Modal isOpen={isOpen} size={"sm"} onClose={onClose}>
+
+        <Modal isOpen={isOpen} size={"sm"}>
           <ModalOverlay />
           <ModalContent>
             <ModalHeader>Update Password</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
               <FormControl mb="4">
-                <FormLabel>Email</FormLabel>
-                <Input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
+                <Stack>
+                  <FormLabel>Email</FormLabel>
+                  <InputGroup>
+                    <Input
+                      name="email"
+                      type="email"
+                      value={email.email}
+                      onChange={emailHandler}
+                    />
+                    <InputRightAddon>
+                      <Button
+                        variant={"none"}
+                        minW={"0"}
+                        onClick={OtpHandler}
+                        padding={"0"}
+                      >
+                        click
+                      </Button>
+                    </InputRightAddon>
+                  </InputGroup>
+                </Stack>
               </FormControl>
               <FormControl mb="4">
                 <FormLabel>OTP</FormLabel>
@@ -69,10 +120,9 @@ const UpdatePasswordModal = () => {
               </FormControl>
             </ModalBody>
             <ModalFooter display={"flex"} justifyContent={"flex-start"}>
-              <Button colorScheme="blue" mr={3}>
-                Submit
+              <Button colorScheme="blue" onClick={updatePawwordHandler} mr={3}>
+                Update Password
               </Button>
-              <Button onClick={onClose}>Cancel</Button>
             </ModalFooter>
           </ModalContent>
         </Modal>

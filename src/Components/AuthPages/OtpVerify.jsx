@@ -23,6 +23,7 @@ import { removeEmail } from "../../Redux/userSlice/otpSlice";
 import { useNavigate } from "react-router-dom";
 import { ResendotpApi } from "../../Api/postApi";
 
+
 const OtpVerify = () => {
   const [formData, setFormData] = useState({ otp: "" });
   const [isOpen, setIsOpen] = useState(false);
@@ -31,6 +32,7 @@ const OtpVerify = () => {
   const dispatch = useDispatch();
   const [timeOut, setTimeOut] = useState(90);
   const [isResend, setIsResend] = useState(false);
+  
 
   const changeHandler = (e) => {
     const { name, value } = e.target;
