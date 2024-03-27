@@ -155,11 +155,19 @@ const NavBar = () => {
                     <PopoverArrow />
 
                     <PopoverBody padding={"1.5rem"}>
-                      <NavLink>
-                        <Text fontSize={"16px"} fontWeight={"700"}>
+
+                   
+                       <Button variant={"none"} minW={"0px"} padding={"0px"} onClick={()=> navigate("/myprofile")}>
+                       <Text
+                          mt={"0.5rem"}
+                          fontSize={"16px"}
+                          fontWeight={"700"}
+                        >
                           My Profile
                         </Text>
-                      </NavLink>
+                       </Button>
+                     
+                     
                       <NavLink onClick={logOutHandler}>
                         <Text
                           mt={"0.5rem"}

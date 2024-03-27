@@ -24,7 +24,6 @@ export const PUBLICROUTES = Object.freeze({
   SIGN_UP: "/signup",
   FORGET: "/forget",
 });
-
 const ProtectedRoute = ({ children }) => {
   const dispatch = useDispatch()
     const navigate = useNavigate()

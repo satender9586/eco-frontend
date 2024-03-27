@@ -16,6 +16,7 @@ import Contact from "./Components/HomeComponents/Contact";
 import Dashboard from "./Components/Dashbord/Dashboard";
 import Payment from "./Components/Payment/Payment";
 import MyOrder from "./Components/PlaceOrder.jsx/MyOrder";
+import MyProfile from "./Components/HomeComponents/MyProfile";
 
 
 function App() {
@@ -46,6 +47,7 @@ function App() {
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/payment" element={<Payment />} />
       <Route path="/myorder" element={<MyOrder />} />
+      <Route path="/myprofile" element={<MyProfile />} />
     </Routes>
   );
 }
