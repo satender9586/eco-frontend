@@ -5,7 +5,7 @@ import { fetchProducts } from "./Redux/ProductSlice/ProductRetriveSlice";
 import MainHome from "./Components/HomeComponents/MainHome";
 import LoginPage from "./Components/AuthPages/LoginPage";
 import SignUpPage from "./Components/AuthPages/SignUpPage";
-import OtpVerify from "./Components/AuthPages/otpVerify";
+import OtpVerify from "./Components/AuthPages/OtpVerify";
 import ForgetPassoword from "./Components/AuthPages/ForgetPassoword";
 import UpdatePassoword from "./Components/AuthPages/UpdatePassoword";
 import AboutProduct from "./Components/Products/AboutProduct";
