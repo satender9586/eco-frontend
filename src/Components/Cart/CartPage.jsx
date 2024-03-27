@@ -9,7 +9,7 @@ import {
   decreaseQuantity,
   removeItem,
 } from "../../Redux/CartReducers/CartSlice";
-import about from "../../assets/about.png";
+import about from "../../assets/about.jpg";
 
 const CartPage = () => {
   const navigate = useNavigate();

@@ -9,7 +9,7 @@ import {
   Text,
   Textarea,
 } from "@chakra-ui/react";
-import aboutImg from "../../assets/about.png";
+import aboutImg from "../../assets/about.jpg";
 import { useSelector } from "react-redux";
 
 const MyProfile = () => {

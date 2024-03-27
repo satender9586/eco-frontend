@@ -4,6 +4,7 @@ import { getToken } from "./function";
 // import { refreshTokenApi } from './api';
 // import AllToast from '../utils/toast';
 
+// "http://localhost:8080/api/v1"
 const instance = axios.create({});
 
 const basePublicUrl = import.meta.env.VITE_PUBLIC_URL;

@@ -1,6 +1,6 @@
 import { Box ,Text} from "@chakra-ui/react";
 import React from "react";
-import img from "../../assets/shop.png";
+import img from "../../assets/shop.jpg";
 
 
 const Header = () => {
