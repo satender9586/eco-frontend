@@ -1,14 +1,11 @@
 import axios from "axios";
 import { getToken } from "./function";
 
-// import { refreshTokenApi } from './api';
-// import AllToast from '../utils/toast';
-
 // "http://localhost:8080/api/v1"
 const instance = axios.create({});
 
 const basePublicUrl = import.meta.env.VITE_PUBLIC_URL;
-instance.defaults.baseURL = "http://localhost:8080/api/v1";
+instance.defaults.baseURL = basePublicUrl;
 
 // Add request interceptor
 instance.interceptors.request.use(
@@ -38,8 +35,6 @@ instance.interceptors.response.use(
     }
 
     if (error?.response?.status === 401) {
-      //   refreshTokenApi();
-      //   AllToast.info("Please try again")
     } else {
       return new Promise((resolve, reject) => {
         reject(error);
