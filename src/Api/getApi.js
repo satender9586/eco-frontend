@@ -24,7 +24,7 @@ export const getuserInfoData = async (id) => {
   return response;
 };
 export const getAllOrdersApi = async (id) => {
-  const response = axiosconfig.get(`/payment/orders/${id}`);
+  const response = axiosconfig.get(`/payment/ordersuser/${id}`);
   if (!(await response).statusText === "ok") {
     throw new Error("Soome Thing Went Wrong");
   }

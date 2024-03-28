@@ -1,30 +1,30 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../HomeComponents/Layout";
-import { Box, Text, Image, Flex } from "@chakra-ui/react";
+import { Box, Text, Image, Flex, Heading } from "@chakra-ui/react";
 import about from "../../assets/about.jpg";
 import { useSelector } from "react-redux";
 import { getAllOrdersApi } from "../../Api/getApi";
 
-
-
 const MyOrder = () => {
- 
   const user = useSelector((state) => state.userInfo);
-  
+
   const [orders, setOrders] = useState([]);
+  const [ammount, setAmmount] = useState(0)
 
   const HanderOrderFun = async () => {
     try {
-      if (user?._id) {
-        const response = await getAllOrdersApi(user?._id);
-        setOrders(response?.data?.data);
-      }
+      const response = await getAllOrdersApi(user._id);
+      setOrders(response?.data?.orders);
+    
+      console.log(total)
     } catch (error) {}
   };
 
+  console.log(orders);
+
   useEffect(() => {
     HanderOrderFun();
-  }, [user?._id]);
+  }, []);
 
   return (
     <Layout>
@@ -56,36 +56,42 @@ const MyOrder = () => {
           </Text>
         </Box>
         <Box padding={"3% 5%"}>
-        {
-          orders.map((data, index)=>(
+          {orders.map((data, index) => (
             <Box
-            key={index}
-            borderWidth="1px"
-            borderRadius="lg"
-            overflow="hidden"
-            p="1rem"
-            boxShadow="md"
-            mt={"1rem"}
-          >
-            <Flex align="center">
-              <Image
-                // src={data.image}
-                borderRadius="md"
-                boxSize="100px"
-                mr="1rem"
-              />
-              <Box>
-                <Text fontSize="xl" fontWeight="semibold">
-                  {/* {data.name} */}
-                </Text>
-                <Text fontSize="md" color="gray.600">
-                  {/* Price: ₹{data.price} */}
-                </Text>
-              </Box>
-            </Flex>
-          </Box>
-          ))
-        }
+              key={index}
+              borderWidth="1px"
+              borderRadius="lg"
+              overflow="hidden"
+              p="1rem"
+              boxShadow="md"
+              mt={"1rem"}
+              
+            >
+              <Heading textAlign={"end"} fontSize={15}>Payment Id : {data.paymentId}</Heading>
+              {/* <Heading textAlign={"end"} fontSize={15}>Total Ammount : {"50"}</Heading> */}
+              {data?.products?.map((data, index) => (
+                <Flex align="center">
+                  <Image
+                    src={data?.product?.image}
+                    borderRadius="md"
+                    boxSize="100px"
+                    mr="1rem"
+                  />
+                  <Box>
+                    <Text fontSize="xl" fontWeight="semibold">
+                      {data?.product?.name}
+                    </Text>
+                    <Text fontSize="md" color="gray.600">
+                      Price: ₹{data?.product?.price}
+                    </Text>
+                    <Text fontSize="md" color="gray.600">
+                     Quantity: ₹{data.quantity}
+                    </Text>
+                  </Box>
+                </Flex>
+              ))}
+            </Box>
+          ))}
         </Box>
       </Box>
     </Layout>
